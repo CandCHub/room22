@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>T-Shirt Quote Calculator</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#1a1a1a;padding:2rem 1rem;min-height:100vh}
+  h1{font-size:20px;font-weight:600;margin-bottom:1.5rem;color:#1a1a1a}
+  .wrap{max-width:600px;margin:0 auto}
+  .section-label{font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px}
+  .card{background:#fff;border:1px solid #e5e5e2;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+  .field{display:flex;flex-direction:column;gap:4px}
+  .field label{font-size:13px;color:#666}
+  input[type=number],select{width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:8px;font-size:14px;background:#fff;color:#1a1a1a;outline:none}
+  input[type=number]:focus,select:focus{border-color:#888}
+  .segment{display:flex;border:1px solid #ddd;border-radius:8px;overflow:hidden;margin-bottom:12px}
+  .seg-btn{flex:1;padding:8px;font-size:14px;cursor:pointer;border:none;background:transparent;color:#666}
+  .seg-btn.active{background:#1a1a1a;color:#fff}
+  .toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .toggle-row label{font-size:14px;cursor:pointer}
+  input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:#1a1a1a}
+  .optional-input{display:none;margin-bottom:8px}
+  .optional-input.show{display:block}
+  .btn-calc{width:100%;padding:11px;font-size:15px;font-weight:600;cursor:pointer;border-radius:8px;background:#1a1a1a;color:#fff;border:none;margin-top:.25rem}
+  .btn-calc:hover{background:#333}
+  .result-card{background:#f9f9f7;border:1px solid #e5e5e2;border-radius:12px;padding:1.25rem;margin-top:1rem;display:none}
+  .result-card.show{display:block}
+  .line-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:14px;border-bottom:1px solid #eee}
+  .line-item:last-child{border-bottom:none}
+  .line-label{color:#555}
+  .line-val{font-weight:600;color:#1a1a1a}
+  .total-row{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;padding-top:14px;border-top:1.5px solid #ccc}
+  .total-label{font-size:15px;font-weight:600}
+  .total-val{font-size:24px;font-weight:700;color:#1a1a1a}
+  .btn-copy{margin-top:12px;width:100%;padding:9px;font-size:13px;cursor:pointer;border-radius:8px;background:transparent;border:1px solid #ccc;color:#555}
+  .btn-copy:hover{background:#f0f0ee}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>T-Shirt Quote Calculator</h1>
+
+  <div class="card">
+    <p class="section-label">Job details</p>
+    <div class="field-row">
+      <div class="field">
+        <label>Blank apparel cost ($)</label>
+        <input type="number" id="blank" min="0" step="0.01" placeholder="e.g. 6.00" />
+      </div>
+      <div class="field">
+        <label>Quantity (shirts)</label>
+        <input type="number" id="qty" min="1" step="1" placeholder="e.g. 12" />
+      </div>
+    </div>
+
+    <div class="field" style="margin-bottom:12px">
+      <label style="font-size:13px;color:#666;margin-bottom:6px;display:block">Shirt size</label>
+      <div class="segment">
+        <button class="seg-btn active" id="seg-adult" onclick="setSeg('adult')">Adult</button>
+        <button class="seg-btn" id="seg-youth" onclick="setSeg('youth')">Youth / toddler</button>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Number of placements</label>
+        <select id="placements">
+          <option value="1">1 — 22 shirts/hr</option>
+          <option value="2">2 — 11 shirts/hr</option>
+          <option value="3">3 — 5.5 shirts/hr</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Francesca's hourly wage ($)</label>
+        <input type="number" id="wage" min="0" step="0.01" placeholder="e.g. 18.00" />
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="section-label">Optional add-ons</p>
+
+    <div class="toggle-row">
+      <input type="checkbox" id="chk-design" onchange="toggle('design-inp',this)" />
+      <label for="chk-design">Design fee</label>
+    </div>
+    <div class="optional-input" id="design-inp">
+      <input type="number" id="design-fee" min="0" step="0.01" placeholder="Design fee ($)" />
+    </div>
+
+    <div class="toggle-row" style="margin-top:6px">
+      <input type="checkbox" id="chk-markup" onchange="toggle('markup-inp',this)" />
+      <label for="chk-markup">Markup %</label>
+    </div>
+    <div class="optional-input" id="markup-inp">
+      <input type="number" id="markup" min="0" step="1" placeholder="e.g. 30 for 30%" />
+    </div>
+
+    <div class="toggle-row" style="margin-top:6px">
+      <input type="checkbox" id="chk-ship" onchange="toggle('ship-inp',this)" />
+      <label for="chk-ship">Shipping</label>
+    </div>
+    <div class="optional-input" id="ship-inp">
+      <input type="number" id="shipping" min="0" step="0.01" placeholder="Shipping cost ($)" />
+    </div>
+  </div>
+
+  <button class="btn-calc" onclick="calculate()">Calculate quote</button>
+
+  <div class="result-card" id="result-card">
+    <p class="section-label">Itemized breakdown</p>
+    <div id="line-items"></div>
+    <div class="total-row">
+      <span class="total-label">Total quote</span>
+      <span class="total-val" id="total-val">—</span>
+    </div>
+    <button class="btn-copy" onclick="copyQuote()">📋 Copy summary</button>
+  </div>
+</div>
+
+<script>
+let sizeType='adult';
+let lastLines=[],lastTotal=0;
+
+function setSeg(t){
+  sizeType=t;
+  document.getElementById('seg-adult').classList.toggle('active',t==='adult');
+  document.getElementById('seg-youth').classList.toggle('active',t==='youth');
+}
+function toggle(id,cb){
+  document.getElementById(id).classList.toggle('show',cb.checked);
+}
+function v(id){return parseFloat(document.getElementById(id).value)||0;}
+function fmt(n){return '$'+n.toFixed(2);}
+
+function calculate(){
+  const blank=v('blank');
+  const qty=Math.max(1,parseInt(document.getElementById('qty').value)||1);
+  const placements=parseInt(document.getElementById('placements').value)||1;
+  const wage=v('wage');
+  const rateMap={1:22,2:11,3:5.5};
+  const shirtsPerHr=rateMap[placements];
+  const minsPerShirt=60/shirtsPerHr;
+  const dtfBase=sizeType==='adult'?3.50:3.00;
+  const dtfAdd=(placements-1)*2.00;
+  const dtfPerShirt=dtfBase+dtfAdd;
+  const laborPerShirt=wage>0?(minsPerShirt/60)*wage:0;
+
+  const blankTotal=blank*qty;
+  const dtfTotal=dtfPerShirt*qty;
+  const laborTotal=laborPerShirt*qty;
+
+  const designFee=document.getElementById('chk-design').checked?v('design-fee'):0;
+  const shipping=document.getElementById('chk-ship').checked?v('shipping'):0;
+
+  let subtotal=blankTotal+dtfTotal+laborTotal+designFee+shipping;
+  let markupAmt=0;
+  if(document.getElementById('chk-markup').checked){
+    markupAmt=subtotal*(v('markup')/100);
+  }
+  const total=subtotal+markupAmt;
+
+  const lines=[
+    {label:`Blank apparel (${qty} × ${fmt(blank)})`,val:blankTotal},
+    {label:`DTF print — ${sizeType==='adult'?'adult':'youth/toddler'} (${placements} placement${placements>1?'s':''}) × ${qty}`,val:dtfTotal},
+  ];
+  if(laborTotal>0) lines.push({label:`Production labor (${shirtsPerHr} shirts/hr × ${qty} shirts @ ${fmt(wage)}/hr)`,val:laborTotal});
+  if(designFee>0) lines.push({label:'Design fee',val:designFee});
+  if(shipping>0) lines.push({label:'Shipping',val:shipping});
+  if(markupAmt>0) lines.push({label:`Markup (${v('markup')}%)`,val:markupAmt});
+
+  lastLines=lines; lastTotal=total;
+
+  const container=document.getElementById('line-items');
+  container.innerHTML=lines.map(l=>`<div class="line-item"><span class="line-label">${l.label}</span><span class="line-val">${fmt(l.val)}</span></div>`).join('');
+  document.getElementById('total-val').textContent=fmt(total);
+  document.getElementById('result-card').classList.add('show');
+}
+
+function copyQuote(){
+  let txt='T-Shirt Quote\n'+'─'.repeat(30)+'\n';
+  lastLines.forEach(l=>{ txt+=l.label+': $'+l.val.toFixed(2)+'\n'; });
+  txt+='─'.repeat(30)+'\nTotal: $'+lastTotal.toFixed(2);
+  navigator.clipboard.writeText(txt).then(()=>{
+    const btn=document.querySelector('.btn-copy');
+    btn.textContent='✓ Copied!';
+    setTimeout(()=>{ btn.textContent='📋 Copy summary'; },2000);
+  });
+}
+</script>
+</body>
+</html>
