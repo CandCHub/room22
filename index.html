@@ -3,46 +3,81 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>T-Shirt Quote Calculator</title>
+<title>Room Twenty-Two — T-Shirt Quote</title>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#1a1a1a;padding:2rem 1rem;min-height:100vh}
-  h1{font-size:20px;font-weight:600;margin-bottom:1.5rem;color:#1a1a1a}
-  .wrap{max-width:600px;margin:0 auto}
-  .section-label{font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px}
-  .card{background:#fff;border:1px solid #e5e5e2;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
-  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-  .field{display:flex;flex-direction:column;gap:4px}
-  .field label{font-size:13px;color:#666}
-  input[type=number],select{width:100%;padding:8px 10px;border:1px solid #ddd;border-radius:8px;font-size:14px;background:#fff;color:#1a1a1a;outline:none}
-  input[type=number]:focus,select:focus{border-color:#888}
-  .segment{display:flex;border:1px solid #ddd;border-radius:8px;overflow:hidden;margin-bottom:12px}
-  .seg-btn{flex:1;padding:8px;font-size:14px;cursor:pointer;border:none;background:transparent;color:#666}
-  .seg-btn.active{background:#1a1a1a;color:#fff}
-  .toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-  .toggle-row label{font-size:14px;cursor:pointer}
-  input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:#1a1a1a}
-  .optional-input{display:none;margin-bottom:8px}
-  .optional-input.show{display:block}
-  .btn-calc{width:100%;padding:11px;font-size:15px;font-weight:600;cursor:pointer;border-radius:8px;background:#1a1a1a;color:#fff;border:none;margin-top:.25rem}
-  .btn-calc:hover{background:#333}
-  .result-card{background:#f9f9f7;border:1px solid #e5e5e2;border-radius:12px;padding:1.25rem;margin-top:1rem;display:none}
-  .result-card.show{display:block}
-  .line-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:14px;border-bottom:1px solid #eee}
-  .line-item:last-child{border-bottom:none}
-  .line-label{color:#555}
-  .line-val{font-weight:600;color:#1a1a1a}
-  .total-row{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;padding-top:14px;border-top:1.5px solid #ccc}
-  .total-label{font-size:15px;font-weight:600}
-  .total-val{font-size:24px;font-weight:700;color:#1a1a1a}
-  .btn-copy{margin-top:12px;width:100%;padding:9px;font-size:13px;cursor:pointer;border-radius:8px;background:transparent;border:1px solid #ccc;color:#555}
-  .btn-copy:hover{background:#f0f0ee}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff8fb;color:#2a2a2a;padding:2rem 1rem;min-height:100vh}
+.wrap{max-width:600px;margin:0 auto}
+
+/* Header */
+.header{text-align:center;margin-bottom:2rem;padding:1.5rem 1rem 1.25rem;background:#fff;border-radius:16px;border:2px solid #f9aecb}
+.brand-circle{display:inline-flex;align-items:center;justify-content:center;width:80px;height:80px;border-radius:50%;border:3px solid #f9aecb;margin-bottom:.75rem;background:#fff}
+.brand-room{font-size:13px;font-weight:700;color:#f06292;font-style:italic;letter-spacing:.02em}
+.brand-name{font-size:22px;font-weight:800;letter-spacing:.03em;line-height:1}
+.brand-name .t{color:#f06292}.brand-name .w{color:#f9c846}.brand-name .e{color:#7ec8c8}.brand-name .n{color:#b8d96e}.brand-name .y{color:#c9a0dc}
+.brand-tagline{font-size:11px;font-weight:700;color:#b8d96e;letter-spacing:.12em;margin-top:4px}
+.stars{color:#f9c846;font-size:14px;vertical-align:middle;margin:0 4px}
+
+/* Cards */
+.section-label{font-size:11px;font-weight:700;color:#f06292;text-transform:uppercase;letter-spacing:.08em;margin:0 0 10px}
+.card{background:#fff;border:1.5px solid #fcd6e8;border-radius:14px;padding:1.25rem;margin-bottom:1rem}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:13px;color:#888}
+input[type=number],select{width:100%;padding:8px 10px;border:1.5px solid #fcd6e8;border-radius:8px;font-size:14px;background:#fff;color:#2a2a2a;outline:none}
+input[type=number]:focus,select:focus{border-color:#f06292}
+.segment{display:flex;border:1.5px solid #fcd6e8;border-radius:8px;overflow:hidden;margin-bottom:12px}
+.seg-btn{flex:1;padding:8px;font-size:14px;cursor:pointer;border:none;background:transparent;color:#aaa;font-weight:500}
+.seg-btn.active{background:#f06292;color:#fff}
+.toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.toggle-row label{font-size:14px;cursor:pointer;color:#555}
+input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:#f06292}
+.optional-input{display:none;margin-bottom:8px}
+.optional-input.show{display:block}
+
+/* Buttons */
+.btn-calc{width:100%;padding:12px;font-size:15px;font-weight:700;cursor:pointer;border-radius:10px;background:#f06292;color:#fff;border:none;margin-top:.25rem;letter-spacing:.02em}
+.btn-calc:hover{background:#e0507a}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.btn-copy,.btn-pdf{padding:10px;font-size:13px;font-weight:600;cursor:pointer;border-radius:8px;border:1.5px solid #fcd6e8;background:#fff;color:#f06292}
+.btn-copy:hover,.btn-pdf:hover{background:#fff0f6}
+.btn-pdf{border-color:#7ec8c8;color:#4aabab}
+.btn-pdf:hover{background:#f0fafa}
+
+/* Results */
+.result-card{background:#fff8fb;border:1.5px solid #fcd6e8;border-radius:14px;padding:1.25rem;margin-top:1rem;display:none}
+.result-card.show{display:block}
+.line-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:14px;border-bottom:1px solid #fce4ef}
+.line-item:last-child{border-bottom:none}
+.line-label{color:#777}
+.line-val{font-weight:600;color:#2a2a2a}
+.total-row{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;padding-top:14px;border-top:2px solid #f9aecb}
+.total-label{font-size:15px;font-weight:700;color:#f06292}
+.total-val{font-size:26px;font-weight:800;color:#f06292}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>T-Shirt Quote Calculator</h1>
 
+  <!-- Header -->
+  <div class="header">
+    <div class="brand-circle">
+      <div>
+        <div class="brand-room">Room</div>
+        <div class="brand-name">
+          <span class="t">T</span><span class="w">W</span><span class="e">E</span><span class="n">N</span><span class="y">T</span><span class="t">Y</span><span style="color:#aaa">-</span><span class="w">T</span><span class="e">W</span><span class="n">O</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:4px">
+      <span class="stars">★</span>
+      <span style="font-size:11px;font-weight:700;color:#7ec8c8;letter-spacing:.06em">T-SHIRT QUOTE CALCULATOR</span>
+      <span class="stars">★</span>
+    </div>
+    <div class="brand-tagline">Learn. Believe. Do.</div>
+  </div>
+
+  <!-- Job Details -->
   <div class="card">
     <p class="section-label">Job details</p>
     <div class="field-row">
@@ -57,10 +92,10 @@
     </div>
 
     <div class="field" style="margin-bottom:12px">
-      <label style="font-size:13px;color:#666;margin-bottom:6px;display:block">Shirt size</label>
+      <label style="font-size:13px;color:#888;margin-bottom:6px;display:block">Shirt size</label>
       <div class="segment">
         <button class="seg-btn active" id="seg-adult" onclick="setSeg('adult')">Adult</button>
-        <button class="seg-btn" id="seg-youth" onclick="setSeg('youth')">Youth / toddler</button>
+        <button class="seg-btn" id="seg-youth" onclick="setSeg('youth')">Youth / Toddler</button>
       </div>
     </div>
 
@@ -75,14 +110,14 @@
       </div>
       <div class="field">
         <label>Francesca's hourly wage ($)</label>
-        <input type="number" id="wage" min="0" step="0.01" placeholder="e.g. 18.00" />
+        <input type="number" id="wage" min="0" step="0.01" placeholder="e.g. 15.00" value="15" />
       </div>
     </div>
   </div>
 
+  <!-- Add-ons -->
   <div class="card">
     <p class="section-label">Optional add-ons</p>
-
     <div class="toggle-row">
       <input type="checkbox" id="chk-design" onchange="toggle('design-inp',this)" />
       <label for="chk-design">Design fee</label>
@@ -90,7 +125,6 @@
     <div class="optional-input" id="design-inp">
       <input type="number" id="design-fee" min="0" step="0.01" placeholder="Design fee ($)" />
     </div>
-
     <div class="toggle-row" style="margin-top:6px">
       <input type="checkbox" id="chk-markup" onchange="toggle('markup-inp',this)" />
       <label for="chk-markup">Markup %</label>
@@ -98,7 +132,6 @@
     <div class="optional-input" id="markup-inp">
       <input type="number" id="markup" min="0" step="1" placeholder="e.g. 30 for 30%" />
     </div>
-
     <div class="toggle-row" style="margin-top:6px">
       <input type="checkbox" id="chk-ship" onchange="toggle('ship-inp',this)" />
       <label for="chk-ship">Shipping</label>
@@ -108,8 +141,9 @@
     </div>
   </div>
 
-  <button class="btn-calc" onclick="calculate()">Calculate quote</button>
+  <button class="btn-calc" onclick="calculate()">✦ Calculate Quote</button>
 
+  <!-- Results -->
   <div class="result-card" id="result-card">
     <p class="section-label">Itemized breakdown</p>
     <div id="line-items"></div>
@@ -117,22 +151,22 @@
       <span class="total-label">Total quote</span>
       <span class="total-val" id="total-val">—</span>
     </div>
-    <button class="btn-copy" onclick="copyQuote()">📋 Copy summary</button>
+    <div class="btn-row">
+      <button class="btn-copy" onclick="copyQuote()">📋 Copy summary</button>
+      <button class="btn-pdf" onclick="downloadPDF()">⬇ Download PDF</button>
+    </div>
   </div>
-</div>
 
+</div>
 <script>
-let sizeType='adult';
-let lastLines=[],lastTotal=0;
+let sizeType='adult', lastLines=[], lastTotal=0;
 
 function setSeg(t){
   sizeType=t;
   document.getElementById('seg-adult').classList.toggle('active',t==='adult');
   document.getElementById('seg-youth').classList.toggle('active',t==='youth');
 }
-function toggle(id,cb){
-  document.getElementById(id).classList.toggle('show',cb.checked);
-}
+function toggle(id,cb){document.getElementById(id).classList.toggle('show',cb.checked);}
 function v(id){return parseFloat(document.getElementById(id).value)||0;}
 function fmt(n){return '$'+n.toFixed(2);}
 
@@ -143,52 +177,94 @@ function calculate(){
   const wage=v('wage');
   const rateMap={1:22,2:11,3:5.5};
   const shirtsPerHr=rateMap[placements];
-  const minsPerShirt=60/shirtsPerHr;
   const dtfBase=sizeType==='adult'?3.50:3.00;
-  const dtfAdd=(placements-1)*2.00;
-  const dtfPerShirt=dtfBase+dtfAdd;
-  const laborPerShirt=wage>0?(minsPerShirt/60)*wage:0;
+  const dtfPerShirt=dtfBase+(placements-1)*2.00;
+  const laborPerShirt=wage>0?((60/shirtsPerHr)/60)*wage:0;
 
   const blankTotal=blank*qty;
   const dtfTotal=dtfPerShirt*qty;
   const laborTotal=laborPerShirt*qty;
-
   const designFee=document.getElementById('chk-design').checked?v('design-fee'):0;
   const shipping=document.getElementById('chk-ship').checked?v('shipping'):0;
-
   let subtotal=blankTotal+dtfTotal+laborTotal+designFee+shipping;
-  let markupAmt=0;
-  if(document.getElementById('chk-markup').checked){
-    markupAmt=subtotal*(v('markup')/100);
-  }
+  let markupAmt=document.getElementById('chk-markup').checked?subtotal*(v('markup')/100):0;
   const total=subtotal+markupAmt;
 
   const lines=[
     {label:`Blank apparel (${qty} × ${fmt(blank)})`,val:blankTotal},
-    {label:`DTF print — ${sizeType==='adult'?'adult':'youth/toddler'} (${placements} placement${placements>1?'s':''}) × ${qty}`,val:dtfTotal},
+    {label:`DTF print — ${sizeType==='adult'?'Adult':'Youth/Toddler'} (${placements} placement${placements>1?'s':''}) × ${qty}`,val:dtfTotal},
   ];
-  if(laborTotal>0) lines.push({label:`Production labor (${shirtsPerHr} shirts/hr × ${qty} shirts @ ${fmt(wage)}/hr)`,val:laborTotal});
+  if(laborTotal>0) lines.push({label:`Production labor (${shirtsPerHr} shirts/hr × ${qty} @ ${fmt(wage)}/hr)`,val:laborTotal});
   if(designFee>0) lines.push({label:'Design fee',val:designFee});
   if(shipping>0) lines.push({label:'Shipping',val:shipping});
   if(markupAmt>0) lines.push({label:`Markup (${v('markup')}%)`,val:markupAmt});
 
   lastLines=lines; lastTotal=total;
 
-  const container=document.getElementById('line-items');
-  container.innerHTML=lines.map(l=>`<div class="line-item"><span class="line-label">${l.label}</span><span class="line-val">${fmt(l.val)}</span></div>`).join('');
+  document.getElementById('line-items').innerHTML=lines.map(l=>
+    `<div class="line-item"><span class="line-label">${l.label}</span><span class="line-val">${fmt(l.val)}</span></div>`
+  ).join('');
   document.getElementById('total-val').textContent=fmt(total);
   document.getElementById('result-card').classList.add('show');
 }
 
 function copyQuote(){
-  let txt='T-Shirt Quote\n'+'─'.repeat(30)+'\n';
-  lastLines.forEach(l=>{ txt+=l.label+': $'+l.val.toFixed(2)+'\n'; });
-  txt+='─'.repeat(30)+'\nTotal: $'+lastTotal.toFixed(2);
+  let txt='Room Twenty-Two — T-Shirt Quote\n'+'─'.repeat(34)+'\n';
+  lastLines.forEach(l=>{txt+=l.label+': $'+l.val.toFixed(2)+'\n';});
+  txt+='─'.repeat(34)+'\nTotal: $'+lastTotal.toFixed(2);
   navigator.clipboard.writeText(txt).then(()=>{
     const btn=document.querySelector('.btn-copy');
     btn.textContent='✓ Copied!';
-    setTimeout(()=>{ btn.textContent='📋 Copy summary'; },2000);
+    setTimeout(()=>{btn.textContent='📋 Copy summary';},2000);
   });
+}
+
+function downloadPDF(){
+  const now=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const rows=lastLines.map((l,i)=>
+    `<tr style="background:${i%2===0?'#fff8fb':'#fff'}">
+      <td style="padding:8px 12px;color:#666;font-size:13px">${l.label}</td>
+      <td style="padding:8px 12px;text-align:right;font-weight:600;font-size:13px">${fmt(l.val)}</td>
+    </tr>`
+  ).join('');
+
+  const win=window.open('','_blank');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>Room Twenty-Two Quote</title>
+  <style>
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;margin:0;padding:40px;background:#fff;color:#2a2a2a}
+    .header{background:#fcd6e8;border-radius:12px;padding:24px;text-align:center;margin-bottom:24px}
+    .header h1{color:#f06292;font-size:26px;margin:0 0 4px}
+    .header .sub{color:#4aabab;font-size:12px;font-weight:700;letter-spacing:.1em;margin:4px 0}
+    .header .tag{color:#b8d96e;font-size:11px;font-weight:700;letter-spacing:.1em}
+    .date{text-align:center;color:#999;font-size:12px;margin-bottom:20px}
+    table{width:100%;border-collapse:collapse;border:1.5px solid #fcd6e8;border-radius:10px;overflow:hidden}
+    th{background:#f06292;color:#fff;padding:10px 12px;font-size:12px;text-align:left;letter-spacing:.05em}
+    th:last-child{text-align:right}
+    .total-row td{background:#fcd6e8;color:#f06292;font-weight:700;font-size:15px;padding:12px}
+    .total-row td:last-child{text-align:right;font-size:18px}
+    .footer{text-align:center;color:#ccc;font-size:10px;margin-top:32px}
+    @media print{body{padding:20px}.no-print{display:none}}
+  </style></head><body>
+  <div class="header">
+    <h1>Room Twenty-Two</h1>
+    <div class="sub">★ &nbsp; T-SHIRT QUOTE &nbsp; ★</div>
+    <div class="tag">Learn. Believe. Do.</div>
+  </div>
+  <div class="date">Generated: ${now}</div>
+  <table>
+    <thead><tr><th>Item</th><th>Amount</th></tr></thead>
+    <tbody>${rows}
+      <tr class="total-row"><td>Total Quote</td><td>${fmt(lastTotal)}</td></tr>
+    </tbody>
+  </table>
+  <div class="footer">Room Twenty-Two Custom Apparel</div>
+  <br>
+  <div class="no-print" style="text-align:center">
+    <button onclick="window.print()" style="padding:10px 28px;background:#f06292;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Print / Save as PDF</button>
+  </div>
+  </body></html>`);
+  win.document.close();
 }
 </script>
 </body>
