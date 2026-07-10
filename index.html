@@ -127,9 +127,13 @@ input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:#f06292}
     </div>
     <div class="toggle-row" style="margin-top:6px">
       <input type="checkbox" id="chk-markup" onchange="toggle('markup-inp',this)" />
-      <label for="chk-markup">Markup %</label>
+      <label for="chk-markup">Markup</label>
     </div>
     <div class="optional-input" id="markup-inp">
+      <div style="display:flex;gap:8px;margin-bottom:6px">
+        <button class="seg-btn active" id="markup-pct-btn" onclick="setMarkupType('pct')" style="border:1.5px solid #fcd6e8;border-radius:8px;padding:5px 14px;font-size:13px">%</button>
+        <button class="seg-btn" id="markup-dollar-btn" onclick="setMarkupType('dollar')" style="border:1.5px solid #fcd6e8;border-radius:8px;padding:5px 14px;font-size:13px">$</button>
+      </div>
       <input type="number" id="markup" min="0" step="1" placeholder="e.g. 30 for 30%" />
     </div>
     <div class="toggle-row" style="margin-top:6px">
@@ -159,7 +163,13 @@ input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:#f06292}
 
 </div>
 <script>
-let sizeType='adult', lastLines=[], lastTotal=0;
+let sizeType='adult', lastLines=[], lastTotal=0, markupType='pct';
+function setMarkupType(t){
+  markupType=t;
+  document.getElementById('markup-pct-btn').classList.toggle('active',t==='pct');
+  document.getElementById('markup-dollar-btn').classList.toggle('active',t==='dollar');
+  document.getElementById('markup').placeholder=t==='pct'?'e.g. 30 for 30%':'e.g. 10.00';
+}
 
 function setSeg(t){
   sizeType=t;
@@ -187,7 +197,10 @@ function calculate(){
   const designFee=document.getElementById('chk-design').checked?v('design-fee'):0;
   const shipping=document.getElementById('chk-ship').checked?v('shipping'):0;
   let subtotal=blankTotal+dtfTotal+laborTotal+designFee+shipping;
-  let markupAmt=document.getElementById('chk-markup').checked?subtotal*(v('markup')/100):0;
+  let markupAmt=0;
+  if(document.getElementById('chk-markup').checked){
+    markupAmt=markupType==='pct'?subtotal*(v('markup')/100):v('markup');
+  }
   const total=subtotal+markupAmt;
 
   const lines=[
@@ -197,7 +210,7 @@ function calculate(){
   if(laborTotal>0) lines.push({label:`Production labor (${shirtsPerHr} shirts/hr × ${qty} @ ${fmt(wage)}/hr)`,val:laborTotal});
   if(designFee>0) lines.push({label:'Design fee',val:designFee});
   if(shipping>0) lines.push({label:'Shipping',val:shipping});
-  if(markupAmt>0) lines.push({label:`Markup (${v('markup')}%)`,val:markupAmt});
+  if(markupAmt>0) lines.push({label:markupType==='pct'?`Markup (${v('markup')}% of subtotal)`:`Markup (${fmt(v('markup'))} flat)`,val:markupAmt});
 
   lastLines=lines; lastTotal=total;
 
